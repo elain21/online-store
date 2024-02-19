@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStore", "OnlineStore\OnlineStore.csproj", "{845AFD8C-895C-4F89-A092-43E9E84876AD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6E75A3D5-F37D-42FE-A786-850BD0A1A1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{958E5EEB-0DE7-4CF1-B06C-9096067BD39D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,12 @@ Global
 		{845AFD8C-895C-4F89-A092-43E9E84876AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{845AFD8C-895C-4F89-A092-43E9E84876AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{845AFD8C-895C-4F89-A092-43E9E84876AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{958E5EEB-0DE7-4CF1-B06C-9096067BD39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{958E5EEB-0DE7-4CF1-B06C-9096067BD39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{958E5EEB-0DE7-4CF1-B06C-9096067BD39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{958E5EEB-0DE7-4CF1-B06C-9096067BD39D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{958E5EEB-0DE7-4CF1-B06C-9096067BD39D} = {6E75A3D5-F37D-42FE-A786-850BD0A1A1FB}
 	EndGlobalSection
 EndGlobal
