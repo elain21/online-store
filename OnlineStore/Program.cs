@@ -17,6 +17,7 @@ builder.Services.AddDbContext<OnlineStoreContext>(options =>
         optionsBuilder =>
         {
             optionsBuilder.CommandTimeout(120);
+            optionsBuilder.MigrationsAssembly("Database");
         }
     );
 }, ServiceLifetime.Transient);
