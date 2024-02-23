@@ -1,40 +1,30 @@
 using System.Text;
+using Core.Users.Commands;
 using Database;
-using Database.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OnlineStore.Controllers;
 
+[ApiController]
 public class UsersController : Controller
 {
     private OnlineStoreContext OnlineStoreContext { get; }
     
-    public UsersController(OnlineStoreContext onlineStoreContext)
+    private IMediator Mediator { get; }
+    
+    public UsersController(OnlineStoreContext onlineStoreContext, IMediator mediator)
     {
         OnlineStoreContext = onlineStoreContext;
+        Mediator = mediator;
     }
     
     [HttpPost("createUser")]
-    public IActionResult CreateUser([FromQuery] string phoneNumber, [FromQuery] string password)
+    public async Task<IActionResult> CreateUser(CreateUserCmd cmd)
     {
-        if (string.IsNullOrWhiteSpace(password))
-        {
-            return BadRequest("Пустой пароль");
-        }
-        
-        var passwordCrypt = BCrypt.Net.BCrypt.HashPassword(password);
-        var passwordBytes = Encoding.ASCII.GetBytes(passwordCrypt); 
-        
-        var newUser = new User
-        {
-            PhoneNumber = phoneNumber,
-            Password = passwordBytes
-        };
+        var result = await Mediator.Send(cmd);
 
-        OnlineStoreContext.Users.Add(newUser);
-        OnlineStoreContext.SaveChanges();
-
-        return Ok();
+        return result ? Ok() : BadRequest();
     }
 
     [HttpPost("signIn")]
@@ -48,6 +38,8 @@ public class UsersController : Controller
 
         var userPassword = Encoding.ASCII.GetString(user.Password!);
 
-        return BCrypt.Net.BCrypt.Verify(password, userPassword) ? Ok() : BadRequest("Неверный логин или пароль");
+        return BCrypt.Net.BCrypt.Verify(password, userPassword) 
+            ? Ok() 
+            : BadRequest("Неверный логин или пароль");
     }
 }

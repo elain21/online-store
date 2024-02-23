@@ -1,3 +1,4 @@
+using Core.Users.Commands;
 using Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,8 @@ builder.Services.AddDbContext<OnlineStoreContext>(options =>
 }, ServiceLifetime.Transient);
 
 builder.Services.AddTransient<OnlineStoreContext>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateUserCmd).Assembly));
 
 var app = builder.Build();
 
