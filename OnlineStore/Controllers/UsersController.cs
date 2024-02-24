@@ -28,18 +28,10 @@ public class UsersController : Controller
     }
 
     [HttpPost("signIn")]
-    public IActionResult SignIn([FromQuery] string phoneNumber, [FromQuery] string password)
+    public async Task<IActionResult> SignIn(SignInCmd cmd)
     {
-        var user = OnlineStoreContext.Users.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
-        if (user == null)
-        {
-            return BadRequest("Неверный логин или пароль");
-        }
+        var result = await Mediator.Send(cmd);
 
-        var userPassword = Encoding.ASCII.GetString(user.Password!);
-
-        return BCrypt.Net.BCrypt.Verify(password, userPassword) 
-            ? Ok() 
-            : BadRequest("Неверный логин или пароль");
+        return result ? Ok() : BadRequest("Неверный логин или пароль");
     }
 }
